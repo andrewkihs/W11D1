@@ -25,8 +25,8 @@ export const todoError = error => ({
   error,
 });
 
-export const fetchTodos = () => (dispatch) => {
+export const fetchTodos = () => (store) => {
   return APIUtil.fetchTodos().then(todos => {
-    return dispatch(receiveTodos(todos))
+    return store.dispatch(receiveTodos(todos))
   })
 };
