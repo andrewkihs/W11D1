@@ -20,14 +20,19 @@ class TodoForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const todo = Object.assign({}, this.state, { id: uniqueId() });
-    this.props.receiveTodo(todo);
-    this.setState({
-      title: "",
-      body: ""
-    }); // reset form
+    this.props.createTodo(todo).then (
+      () => this.setState({
+        title: "",
+        body: ""
+      })
+    )
   }
 
   render() {
+    // if (!this.props.errors === undefined) {
+
+    // }
+    debugger
     return (
       <form className="todo-form" onSubmit={this.handleSubmit}>
         <label>Title:
@@ -37,7 +42,7 @@ class TodoForm extends React.Component {
             value={this.state.title}
             placeholder="buy milk"
             onChange={this.update('title')}
-            required/>
+            />
         </label>
         <label>Body:
           <textarea
@@ -48,8 +53,9 @@ class TodoForm extends React.Component {
             rows='5'
             placeholder="2% or whatever is on sale!"
             onChange={this.update('body')}
-            required></textarea>
+            ></textarea>
         </label>
+        <p> {this.props.errors.toString() }</p>
         <button className="create-button">Create Todo!</button>
       </form>
     );

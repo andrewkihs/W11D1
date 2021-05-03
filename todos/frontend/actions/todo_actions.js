@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/todo_api_util';
+import { receiveErrors } from './error_actions';
 
 export const RECEIVE_TODOS = 'RECEIVE_TODOS';
 export const RECEIVE_TODO = 'RECEIVE_TODO';
@@ -30,3 +31,11 @@ export const fetchTodos = () => (store) => {
     return store.dispatch(receiveTodos(todos))
   })
 };
+
+export const createTodo = (todo) => (store) => {
+  debugger
+  return APIUtil.receiveTodo(todo).then(
+    todo => store.dispatch(receiveTodo(todo)),
+    err => store.dispatch(receiveErrors(err.responseJSON)))
+};
+
